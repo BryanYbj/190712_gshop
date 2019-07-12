@@ -1,5 +1,5 @@
 import ajax from "./ajax";
-
+const BASE_URL = 'http://'
 // 包含n个接口请求函数的模块,返回值：promise对象
 
 //因为有多个函数 不用default

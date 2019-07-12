@@ -12,7 +12,7 @@
             <span class="header_login_text">登录|注册</span>
           </span>
         </header> -->
-        <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+        <HeaderTop :title="address.name">
           <span class="header_search" slot="left">
             <i class="iconfont icon-sousuo"></i>
           </span>
@@ -321,7 +321,7 @@
 
 </template>
 <script>
-  
+  import{mapState} from 'vuex'
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
 
@@ -336,11 +336,39 @@
         pagination:{
           el:".swiper-pagination",
         }
-      })
+      }),
+      this.$store.dispatch('getCategorys')
     },
     components:{
       HeaderTop,
       Shoplist
+    },
+    //读取状态
+    computed:{
+      ...mapState(['address','categorys']),
+      //根据categorys一维数组生成一个二维数组，小数组中的元素个数最大是8
+      categorysArr(){
+        const {categorys} = this
+        //准备空的2维数组
+        const arr = []
+        //准备一个小数组(最大长度为8)
+        let  minArr = []
+        //遍历categorys
+        categorys.forEach(c => {
+          
+          //如果当前小数组已经满了，创建一个新的
+          if(minArr.length ===8){
+            minArr = []
+          }
+          //如果minArr是空的，将小数组保存到大数组中
+          if(minArr.length ===0){
+            arr.push(minArr)
+          }
+          //将当前分类保存到小数组中
+          minArr.push(c)
+        });
+        return arr
+      }
     }
   };
 </script>

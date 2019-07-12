@@ -7,11 +7,17 @@
 </template>
 
 <script>
+
+import {mapActions} from 'vuex'
 import FooterGuide from './components/FoodterGuide/FooterGuide.vue'
-export default {
+//import {reqFoodTypes} from './api'
+export default { 
+  cmounted(){
+    this.$store.dispatch('getAddress')
+  },
   components:{
     FooterGuide
-  }
+  },
 }
 </script>
 
